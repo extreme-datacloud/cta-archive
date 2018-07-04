@@ -1,4 +1,4 @@
-name: metaDataExtractor
+name: ctaarchiveenv
 dependencies:
  - h5py
  - simplejson
