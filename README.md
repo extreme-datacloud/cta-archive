@@ -8,15 +8,17 @@ Installation:
         git clone https://gitlab.in2p3.fr/Frederic.Gillardo1/ctaarchive.git
     
     2-from the root of the project execute the following cmd:
-    
         conda env create -f environment.yml
         conda activate ctaarchiveenv
         python setup.py install
         
     3-execute the following cmd to extract metadata from a file:
-    
         onedataextractor pathToTheHdf5File
-
+        
+        for example, the following command: 
+            onedataextractor ./onedatacustom/test/ressources/gamma_test.hdf5
+        returns:
+            {"TelescopeID": "AFX123", "trigger": 112456, "CaptureDate": "2012-04-23T18:25:08", "EventID": "UIDASDBN456"}
 
 
 Tool specification:
