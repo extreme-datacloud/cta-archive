@@ -1,0 +1,4 @@
+name: metaDataExtractor
+dependencies:
+ - h5py
+ - simplejson
