@@ -35,7 +35,7 @@ Tool specification:
     {
                    "TelescopeID": "AFX123",
                    "trigger": 112456,   (no quote)
-                   "CaptureDate": 2012-04-23T18:25:43Z,
+                   "CaptureDate": "2012-04-23T18:25:08",
                    "EventID":"UIDASDBN456"
     }
      
