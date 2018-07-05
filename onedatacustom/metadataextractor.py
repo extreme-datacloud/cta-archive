@@ -4,6 +4,8 @@ import h5py
 import json
 import sys
 from datetime import datetime
+from protozfits import File
+
 
 class DateTimeEncoder(json.JSONEncoder):
     def default(self, o):
@@ -13,42 +15,62 @@ class DateTimeEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, o)
 
 
-class MetaDataExtractor:
+class MetaDataExtractorHdf5:
     telescope_ID = 'TelescopeID'
     trigger = 'trigger'
     capture_date = 'CaptureDate'
     event_id = 'EventID'
 
-    def __init__(self,h5_file_path):
-        self.h5_file=h5py.File(h5_file_path,'r')
+    def __init__(self, h5_file_path):
+        self.h5_file = h5py.File(h5_file_path, 'r')
 
     def get_trigger_value(self):
         return int(self.h5_file[self.trigger][0])
 
     def get_telescope_id_value(self):
-        return (self.h5_file[self.telescope_ID][0]).decode()
+        return str((self.h5_file[self.telescope_ID][0]).decode())
 
     def get_capture_date_value(self):
-        #1335198308->2012-04-23T18:25:43.511Z
+        # 1335198308->2012-04-23T18:25:43.511Z
         return datetime.fromtimestamp(self.h5_file[self.capture_date][0])
 
     def get_event_id_value(self):
         return (self.h5_file[self.event_id][0]).decode()
 
     def to_json(self):
-        data={self.telescope_ID:self.get_telescope_id_value(),self.trigger:self.get_trigger_value(),self.capture_date:self.get_capture_date_value(),self.event_id:self.get_event_id_value()}
-        return json.dumps(data,cls=DateTimeEncoder)
+        data = {self.telescope_ID: self.get_telescope_id_value(), self.trigger: self.get_trigger_value(),
+                self.capture_date: self.get_capture_date_value(), self.event_id: self.get_event_id_value()}
+        return json.dumps(data, cls=DateTimeEncoder)
+
+
+class MetaDataExtractorZfits:
+    telescope_ID = 'TelescopeID'
+    capture_date = 'CaptureDate'
+
+    def __init__(self, zfits_file_path):
+        zfits_file = File(zfits_file_path, 'r')
+        self.header = next(zfits_file.RunHeader)
+
+    def get_telescope_id_value(self):
+        return str(self.header.telescopeID)
+
+    def get_capture_date_value(self):
+        return datetime.fromtimestamp(self.header.dateMJD)
+
+    def to_json(self):
+        data = {self.telescope_ID: self.get_telescope_id_value(), self.capture_date: self.get_capture_date_value()}
+        return json.dumps(data, cls=DateTimeEncoder)
+
 
 def main():
-    file_path=sys.argv[1]
-    metaDataExtractor=MetaDataExtractor(file_path)
-    print (metaDataExtractor.to_json())
+    file_path = sys.argv[1]
+    if file_path.endswith('.fz'):
+        return MetaDataExtractorZfits(file_path).to_json()
+    elif file_path.endswith('.hdf5'):
+        return MetaDataExtractorHdf5(file_path).to_json()
+    else:
+        raise Exception("File format not supported")
 
 
 if __name__ == '__main__':
-    main()
-
-
-
-
-
+    print(main())
