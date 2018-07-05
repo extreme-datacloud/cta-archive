@@ -21,7 +21,7 @@
 
 
 
-Tool specification:
+**Tool specification:**
  
     Hdf5
         If the input is HDF5 file with the following MetaData :
@@ -43,15 +43,15 @@ Tool specification:
     Zfits
           If the input is Zfits file with the following MetaData :
              
-                           TelescopeID : String = AFX123
-                           CaptureDate : date = 1335198308 (it is the timeStamp in Z for 2012-04-23T18:25:43 Z)
+                    TelescopeID : String = AFX123
+                    CaptureDate : date = 1335198308 (it is the timeStamp in Z for 2012-04-23T18:25:43 Z)
                          
-            The tool will return as output the following text (json object serialized):
+          The tool will return as output the following text (json object serialized):
                 
-                   {
-                        "TelescopeID": "AFX123",
-                        "CaptureDate": 2012-04-23T18:25:43Z,
-                   }
+          {
+                    "TelescopeID": "AFX123",
+                    "CaptureDate": 2012-04-23T18:25:43Z,
+          }
                                  
     Note:
     Date will be encoded using ISO 8601
