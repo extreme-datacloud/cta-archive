@@ -19,16 +19,8 @@
     
         onedataextractor path_To_Hdf5_Or_ZFits_File
 
-**Running with Docker**
-        make docker-build
-        make docker-test
-    
-    or test manually with test file in the container:
-        docker run Frederic.Gillardo1/ctaarchive onedatacustom/test/ressources/example_9evts_NectarCAM.fits.fz
-    or files outside of the container:
-        docker run -v $PWD/onedatacustom/test/ressources:/data Frederic.Gillardo1/ctaarchive /data/example_9evts_NectarCAM.fits.fz
-        
-    
+
+
 **Tool specification:**
  
     Hdf5
