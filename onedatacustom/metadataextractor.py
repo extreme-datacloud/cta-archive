@@ -61,9 +61,7 @@ class MetaDataExtractorZfits:
         data = {self.telescope_ID: self.get_telescope_id_value(), self.capture_date: self.get_capture_date_value()}
         return json.dumps(data, cls=DateTimeEncoder)
 
-
-def main():
-    file_path = sys.argv[1]
+def extract(file_path):
     if file_path.endswith('.fz'):
         return MetaDataExtractorZfits(file_path).to_json()
     elif file_path.endswith('.hdf5'):
@@ -71,6 +69,10 @@ def main():
     else:
         raise Exception("File format not supported")
 
+def main():
+    file_path = sys.argv[1]
+    print(extract(file_path))
+    exit(0)
 
 if __name__ == '__main__':
     print(main())
