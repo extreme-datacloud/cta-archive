@@ -1,10 +1,13 @@
 import unittest
 import os
 import onedatacustom.metadataextractor
+import datetime
+
 class Hdf5Test(unittest.TestCase):
     currentDir=os.path.dirname(os.path.abspath(__file__))
     def testHDF5(self):
-        self.assertEqual(onedatacustom.metadataextractor.extract(self.currentDir+"/ressources/gamma_test.hdf5"), '{"TelescopeID": "AFX123", "trigger": 112456, "CaptureDate": "2012-04-23T18:25:08", "EventID": "UIDASDBN456"}')
+        print (datetime.datetime.now())
+        self.assertEqual(onedatacustom.metadataextractor.extract(self.currentDir+"/ressources/gamma_test.hdf5"), '{"TelescopeID": "AFX123", "trigger": 112456, "CaptureDate": "2012-04-23T16:25:08", "EventID": "UIDASDBN456"}')
 
 
     #def testZfits(self):

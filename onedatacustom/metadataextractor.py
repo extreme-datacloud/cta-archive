@@ -4,6 +4,7 @@ import h5py
 import json
 import sys
 from datetime import datetime
+
 #from protozfits import File
 
 
@@ -31,8 +32,8 @@ class MetaDataExtractorHdf5:
         return str((self.h5_file[self.telescope_ID][0]).decode())
 
     def get_capture_date_value(self):
-        # 1335198308->2012-04-23T18:25:43.511Z
-        return datetime.fromtimestamp(self.h5_file[self.capture_date][0])
+        # 1335198308->2012-04-23T16:25:43.511Z
+        return datetime.utcfromtimestamp(self.h5_file[self.capture_date][0])
 
     def get_event_id_value(self):
         return (self.h5_file[self.event_id][0]).decode()
