@@ -4,7 +4,7 @@ import h5py
 import json
 import sys
 from datetime import datetime
-from protozfits import File
+#from protozfits import File
 
 
 class DateTimeEncoder(json.JSONEncoder):
@@ -42,7 +42,7 @@ class MetaDataExtractorHdf5:
                 self.capture_date: self.get_capture_date_value(), self.event_id: self.get_event_id_value()}
         return json.dumps(data, cls=DateTimeEncoder)
 
-
+"""
 class MetaDataExtractorZfits:
     telescope_ID = 'TelescopeID'
     capture_date = 'CaptureDate'
@@ -60,10 +60,12 @@ class MetaDataExtractorZfits:
     def to_json(self):
         data = {self.telescope_ID: self.get_telescope_id_value(), self.capture_date: self.get_capture_date_value()}
         return json.dumps(data, cls=DateTimeEncoder)
+"""
 
 def extract(file_path):
     if file_path.endswith('.fz'):
-        return MetaDataExtractorZfits(file_path).to_json()
+        print("not supported")
+        # return MetaDataExtractorZfits(file_path).to_json()
     elif file_path.endswith('.hdf5'):
         return MetaDataExtractorHdf5(file_path).to_json()
     else:
