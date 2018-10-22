@@ -1,10 +1,11 @@
-image: continuumio/miniconda3:latest
+image: continuumio/anaconda3:latest
 
 before_script:
   - conda env create -f environment.yml
   - source activate ctaarchiveenv
   - conda install numpy protobuf astropy
-  - pip install https://github.com/cta-sst-1m/protozfitsreader/archive/v1.0.2.tar.gz
+  - pip install Cython
+  - pip install https://github.com/cta-sst-1m/protozfitsreader/archive/v1.4.1.tar.gz
  
 tests:
   stage: test
