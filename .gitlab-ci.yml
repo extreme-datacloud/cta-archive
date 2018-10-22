@@ -5,7 +5,7 @@ before_script:
   - source activate ctaarchiveenv
   - conda install numpy protobuf astropy
   - pip install Cython
-  - pip install https://github.com/cta-sst-1m/protozfitsreader/archive/v1.0.2.tar.gz
+  - pip install https://github.com/cta-sst-1m/protozfitsreader/archive/v1.4.1.tar.gz
  
 tests:
   stage: test
