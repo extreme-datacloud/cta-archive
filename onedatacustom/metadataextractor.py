@@ -26,7 +26,7 @@ class MetaDataExtractorHdf5:
         self.h5_file = h5py.File(h5_file_path, 'r')
 
     def get_trigger_value(self):
-        return self.h5_file.attrs[self.trigger]
+        return int(self.h5_file.attrs[self.trigger])
 
     def get_telescope_id_value(self):
         return self.h5_file.attrs[self.telescope_ID]
