@@ -26,7 +26,11 @@ class Hdf5Test(unittest.TestCase):
 
     def testLoopHDF5Generator(self):
         path_to_volumes=self.currentDir+"/ressources/volumes/"
-        shutil.rmtree(path_to_volumes)
+        try:
+            shutil.rmtree(path_to_volumes)
+        except :
+            print ("Oops! directory does not yet exist")
+
         os.mkdir(path_to_volumes)
         nbrfileperdirectory=5
         scalefactor=100
