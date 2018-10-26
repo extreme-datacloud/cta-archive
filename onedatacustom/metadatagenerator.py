@@ -4,6 +4,7 @@ import h5py
 import json
 import sys
 import numpy as np
+import os
 from datetime import datetime
 
 #from protozfits import File
@@ -18,6 +19,7 @@ class DateTimeEncoder(json.JSONEncoder):
 
 
 class MetaDataGeneratorHdf5:
+    telescope_ID_list=[]
     telescope_ID = 'TelescopeID'
     trigger = 'trigger'
     capture_date = 'CaptureDate'
@@ -44,7 +46,21 @@ class MetaDataGeneratorHdf5:
         #ascii_event_value = [event_ID_value.encode("ascii", "ignore") ]
         #self.h5_file.create_dataset(self.event_id, (1,1), 'S20', ascii_event_value)
 
-
+    def generate_several_HDF5_file(nbr_of_file_per_directory, pathdirectory0,scalefactor):
+        #directory
+        for j in range (0,scalefactor):
+            pathdirectory1=pathdirectory0+"/"+str(j)
+            os.mkdir(pathdirectory1,777)
+            for k in range (0,scalefactor):
+                pathdirectory2=pathdirectory1+"/"+str(k)
+                os.mkdir(pathdirectory2,777)
+                for i in range (0,nbr_of_file_per_directory):
+                    file_id=i+k*scalefactor**2+j*scalefactor
+                    metadatagenerator=generate(pathdirectory2+"/gamma_test_generated_"+str(file_id)+".hdf5")
+                    metadatagenerator.set_trigger_value(file_id)
+                    metadatagenerator.set_capture_date_value(1335198308+file_id)
+                    metadatagenerator.set_event_id_value("UIDASDBN"+str(file_id/10))
+                    metadatagenerator.set_telescope_id_value("AFX"+str(file_id%100))
 
 def generate(file_path):
     if file_path.endswith('.fz'):
