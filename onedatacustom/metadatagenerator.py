@@ -1,0 +1,56 @@
+#!/usr/bin/python
+
+import h5py
+import json
+import sys
+import numpy as np
+from datetime import datetime
+
+#from protozfits import File
+
+
+class DateTimeEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, datetime):
+            return o.isoformat()
+
+        return json.JSONEncoder.default(self, o)
+
+
+class MetaDataGeneratorHdf5:
+    telescope_ID = 'TelescopeID'
+    trigger = 'trigger'
+    capture_date = 'CaptureDate'
+    event_id = 'EventID'
+
+    def __init__(self, h5_file_path):
+        self.h5_file = h5py.File(h5_file_path, 'w')
+        self.meta_dataset=self.h5_file
+
+    def set_trigger_value(self, trigger_value):
+        self.meta_dataset.attrs[self.trigger]=trigger_value
+
+    def set_telescope_id_value(self, telescope_ID_value):
+        self.meta_dataset.attrs[self.telescope_ID]=telescope_ID_value
+
+    def set_capture_date_value(self, time_stamp_value):
+        self.meta_dataset.attrs[self.capture_date]=time_stamp_value
+        # 1335198308->2012-04-23T16:25:43.511Z
+        # datetime.strptime("2012-04-23T16:25:43.511Z","%Y-%m-%dT%H:%M:%S.%fZ").time()
+        #self.h5_file.create_dataset(self.capture_date, (1,1), 'i8',time_stamp_value)
+
+    def set_event_id_value(self, event_ID_value):
+        self.meta_dataset.attrs[self.event_id]=event_ID_value
+        #ascii_event_value = [event_ID_value.encode("ascii", "ignore") ]
+        #self.h5_file.create_dataset(self.event_id, (1,1), 'S20', ascii_event_value)
+
+
+
+def generate(file_path):
+    if file_path.endswith('.fz'):
+        print("not supported")
+        # return MetaDataExtractorZfits(file_path).to_json()
+    elif file_path.endswith('.hdf5'):
+        return MetaDataGeneratorHdf5(file_path)
+    else:
+        raise Exception("File format not supported")
