@@ -26,17 +26,17 @@ class MetaDataExtractorHdf5:
         self.h5_file = h5py.File(h5_file_path, 'r')
 
     def get_trigger_value(self):
-        return int(self.h5_file[self.trigger][0])
+        return self.h5_file.attrs[self.trigger]
 
     def get_telescope_id_value(self):
-        return str((self.h5_file[self.telescope_ID][0]).decode())
+        return self.h5_file.attrs[self.telescope_ID]
 
     def get_capture_date_value(self):
         # 1335198308->2012-04-23T16:25:43.511Z
-        return datetime.utcfromtimestamp(self.h5_file[self.capture_date][0])
+        return datetime.utcfromtimestamp(self.h5_file.attrs[self.capture_date])
 
     def get_event_id_value(self):
-        return (self.h5_file[self.event_id][0]).decode()
+        return self.h5_file.attrs[self.event_id]
 
     def to_json(self):
         data = {self.telescope_ID: self.get_telescope_id_value(), self.trigger: self.get_trigger_value(),
