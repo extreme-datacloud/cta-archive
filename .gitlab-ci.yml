@@ -6,7 +6,7 @@ before_script:
   - conda install numpy # protobuf astropy
   #- pip install Cython
   #- pip install https://github.com/cta-sst-1m/protozfitsreader/archive/v1.4.1.tar.gz
- 
+  - docker info
 tests:
   stage: test
   script:
@@ -15,7 +15,7 @@ tests:
 
 after_script:
   #build docker image
-  - make docker-image
-  - docker tag Frederic.Gillardo1/ctaarchive gitlab-registry.in2p3.fr/frederic.gillardo1/ctaarchive
+  docker build -t gitlab-registry.in2p3.fr/frederic.gillardo1/ctaarchive
+
   #upload docker image ot registry
   - docker push gitlab-registry.in2p3.fr/frederic.gillardo1/ctaarchive
