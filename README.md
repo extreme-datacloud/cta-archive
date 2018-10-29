@@ -19,7 +19,7 @@
     
         onedataextractor path_To_Hdf5_Or_ZFits_File
 
-**Running with Docker**
+**Running with Docker
         make docker-build
         make docker-test
     

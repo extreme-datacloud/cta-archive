@@ -6,8 +6,9 @@ install:
 	conda env create -f environment.yml
 	conda activate ctaarchiveenv
 	conda install numpy protobuf astropy
-	pip install https://github.com/cta-sst-1m/protozfitsreader/archive/v1.0.2.tar.gz
+	#pip install https://github.com/cta-sst-1m/protozfitsreader/archive/v1.0.2.tar.gz
 	python setup.py install
+	python -m unittest discover -v
 	
 docker-image:
 	docker build -t $(PREFIX)/$(REPO_NAME) . # Build new image and automatically tag it as latest

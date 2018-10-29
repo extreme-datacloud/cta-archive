@@ -33,7 +33,7 @@ class Hdf5Test(unittest.TestCase):
 
         os.mkdir(path_to_volumes)
         nbrfileperdirectory=5
-        scalefactor=100
+        scalefactor=10
         onedatacustom.metadatagenerator.MetaDataGeneratorHdf5.generate_several_HDF5_file(nbrfileperdirectory,path_to_volumes,scalefactor)
         counter = count.Counter(path_to_volumes)
         total_file = 0
