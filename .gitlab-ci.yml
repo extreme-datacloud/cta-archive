@@ -16,6 +16,5 @@ tests:
 after_script:
   #build docker image
   docker build -t gitlab-registry.in2p3.fr/frederic.gillardo1/ctaarchive
-
   #upload docker image ot registry
   - docker push gitlab-registry.in2p3.fr/frederic.gillardo1/ctaarchive
