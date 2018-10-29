@@ -11,3 +11,10 @@ tests:
   stage: test
   script:
     - python -m unittest discover -v
+
+
+after_script:
+  #build docker image
+  
+  #upload docker image ot registry
+  -

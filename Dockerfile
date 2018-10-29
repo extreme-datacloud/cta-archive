@@ -5,8 +5,7 @@ WORKDIR /root
 
 RUN conda env create -f environment.yml
 RUN source activate ctaarchiveenv
-RUN conda install numpy protobuf astropy
-RUN pip install https://github.com/cta-sst-1m/protozfitsreader/archive/v1.0.2.tar.gz astropy
+RUN conda install numpy
 
 RUN python setup.py install
 
