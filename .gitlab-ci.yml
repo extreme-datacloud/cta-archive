@@ -11,30 +11,18 @@ before_script:
   - docker info
 
 stages:
-  - build
   - test
   - publish
-
-build:
-  stage: build
-  script:
-    - docker build -t gitlab-registry.in2p3.fr/cta-lapp/cta-archive .
-    - mkdir image
-    - docker save gitlab-registry.in2p3.fr/cta-lapp/cta-archive > image/app.tar
-  cache:
-    paths:
-      - image
-
 
 test:
   stage: test
   script:
-    - docker load -i image/app.tar
-    - docker run app python -m unittest discover -v 
+    - docker build -t gitlab-registry.in2p3.fr/cta-lapp/cta-archive .
+    - docker run gitlab-registry.in2p3.fr/cta-lapp/cta-archive python -m unittest discover -v 
 
 publish:
   stage: publish
   script:
-    - docker load -i image/app.tar
+    - docker build -t gitlab-registry.in2p3.fr/cta-lapp/cta-archive .
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN gitlab-registry.in2p3.fr
     - docker push gitlab-registry.in2p3.fr/cta-lapp/cta-archive
