@@ -25,4 +25,6 @@ before_script:
 build:
   stage: build
   script:
-    - docker build -t cta-archive .
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN gitlab-registry.in2p3.fr
+    - docker build -t gitlab-registry.in2p3.fr/cta-lapp/cta-archive .
+    - docker push gitlab-registry.in2p3.fr/cta-lapp/cta-archive
