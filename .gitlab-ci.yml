@@ -22,7 +22,7 @@ build:
 
 test:
   stage: test
-  scripts:
+  script:
     - docker run gitlab-registry.in2p3.fr/cta-lapp/cta-archive python -m unittest discover -v 
 
 publish:
