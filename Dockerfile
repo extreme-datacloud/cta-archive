@@ -9,4 +9,4 @@ RUN conda install numpy
 
 RUN python setup.py install
 
-ENTRYPOINT [ "onedataextractor" ]
+CMD [ "onedataextractor" ]
