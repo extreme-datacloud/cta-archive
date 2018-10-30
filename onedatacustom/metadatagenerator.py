@@ -2,12 +2,9 @@
 
 import h5py
 import json
-import sys
-import numpy as np
 import os
 from datetime import datetime
 
-#from protozfits import File
 
 
 class DateTimeEncoder(json.JSONEncoder):
