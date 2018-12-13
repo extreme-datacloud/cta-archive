@@ -5,7 +5,7 @@
         python 3.6
     
     1-clone the project
-        git clone https://gitlab.in2p3.fr/Frederic.Gillardo1/ctaarchive.git
+        git clone https://gitlab.in2p3.fr/CTA-LAPP/cta-archive.git
     
     2-from the root of the project execute the following cmd:
     
