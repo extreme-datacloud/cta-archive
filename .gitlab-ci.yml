@@ -11,9 +11,13 @@ before_script:
   - docker info
 
 stages:
+  - init
   - test
   - publish
 
+init:
+  stage: init
+    - docker-compose
 test:
   stage: test
   script:
