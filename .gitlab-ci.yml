@@ -11,13 +11,8 @@ before_script:
   - docker info
 
 stages:
-  - init
   - test
   - publish
-
-init:
-  stage: init
-  script:
 
 test:
   stage: test
