@@ -17,6 +17,7 @@ stages:
 
 init:
   stage: init
+  script:
     - docker-compose
 test:
   stage: test
