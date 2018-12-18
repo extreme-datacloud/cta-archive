@@ -1,4 +1,5 @@
 name: ctaarchiveenv
 dependencies:
+ - python=3.6
  - h5py
  - simplejson
