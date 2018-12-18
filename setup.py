@@ -3,7 +3,7 @@
 from setuptools import setup, find_packages
 
 entry_points = {}
-entry_points['console_scripts'] = ['onedataextractor=onedatacustom.metadataextractor:main']
+entry_points['console_scripts'] = ['onedataextractor=onedatacustom.metadataextractor:main', 'onedatageneratorloop=onedatacustom.test.testHdf5:main']
 
 setup(
 

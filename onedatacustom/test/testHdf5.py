@@ -5,6 +5,7 @@ import onedatacustom.metadataextractor
 import onedatacustom.metadatagenerator
 import onedatacustom.test.util.counter as count
 import datetime
+import sys
 
 class Hdf5Test(unittest.TestCase):
     currentDir=os.path.dirname(os.path.abspath(__file__))
@@ -24,16 +25,15 @@ class Hdf5Test(unittest.TestCase):
         print("output_json generator"+str(output_json))
         self.assertEqual(output_json, '{"TelescopeID": "AFX123", "trigger": 112457, "CaptureDate": "2012-04-23T16:25:08", "EventID": "UIDASDBN456"}')
 
-    def testLoopHDF5Generator(self):
-        path_to_volumes=self.currentDir+"/ressources/volumes/"
+    def testLoopHDF5Generator(self, nbrfileperdirectory=5, scalefactor=10, path_to_volumes=None ):
+        if path_to_volumes is None:
+            path_to_volumes=self.currentDir+"/ressources/volumes/"
         try:
             shutil.rmtree(path_to_volumes)
         except :
             print ("Oops! directory does not yet exist")
 
         os.mkdir(path_to_volumes)
-        nbrfileperdirectory=5
-        scalefactor=10
         onedatacustom.metadatagenerator.MetaDataGeneratorHdf5.generate_several_HDF5_file(nbrfileperdirectory,path_to_volumes,scalefactor)
         counter = count.Counter(path_to_volumes)
         total_file = 0
@@ -42,3 +42,12 @@ class Hdf5Test(unittest.TestCase):
         print("nbr files generated "+str(total_file))
         self.assertEqual(total_file,nbrfileperdirectory*scalefactor**2)
 
+def main():
+    hdf5Test=Hdf5Test()
+    print (sys.argv[1])
+    print (sys.argv[2])
+
+    hdf5Test.testLoopHDF5Generator(int(sys.argv[1]),int(sys.argv[2]),sys.argv[3])
+
+if __name__ == '__main__':
+    main()
