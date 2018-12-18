@@ -4,6 +4,7 @@ import h5py
 import json
 import os
 from datetime import datetime
+import time
 
 
 
@@ -45,9 +46,11 @@ class MetaDataGeneratorHdf5:
 
     def generate_several_HDF5_file(nbr_of_file_per_directory, pathdirectory0,scalefactor):
         #directory
+        start= time.time()
         for j in range (0,scalefactor):
             pathdirectory1=pathdirectory0+"/"+str(j)
             os.mkdir(pathdirectory1,777)
+            print (j)
             for k in range (0,scalefactor):
                 pathdirectory2=pathdirectory1+"/"+str(k)
                 os.mkdir(pathdirectory2,777)
@@ -58,6 +61,8 @@ class MetaDataGeneratorHdf5:
                     metadatagenerator.set_capture_date_value(1335198308+file_id)
                     metadatagenerator.set_event_id_value("UIDASDBN"+str(file_id/10))
                     metadatagenerator.set_telescope_id_value("AFX"+str(file_id%100))
+        end=time.time()
+        print ("time to generate {:d} files is {:f} ms".format(nbr_of_file_per_directory*scalefactor**2, end-start))
 
 def generate(file_path):
     if file_path.endswith('.fz'):
