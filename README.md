@@ -17,8 +17,8 @@
         
     3-execute the following cmd to extract metadata from a file:
     
-        onedataextractor path_To_Hdf5_Or_ZFits_File
-
+        onedataextractor path_To_Hdf5
+        onedatageneratorloop 2 20 /mnt/c/git/cta-archive/onedatacustom/test/ressources/tmp/
 **Running with Docker
         make docker-build
         make docker-test
@@ -63,6 +63,9 @@
                                  
     Note:
     Date will be encoded using ISO 8601
+    
+    frederic.gillardo@lapp.in2p3.fr
+
 
 
 

@@ -6,13 +6,17 @@ import onedatacustom.metadatagenerator
 import onedatacustom.test.util.counter as count
 import datetime
 import sys
+import time
 
 class Hdf5Test(unittest.TestCase):
     currentDir=os.path.dirname(os.path.abspath(__file__))
     def testHDF5Extractor(self):
+        start= time.time()
         output_json=onedatacustom.metadataextractor.extract(self.currentDir+"/ressources/gamma_test.hdf5")
         print("output_json extractor"+str(output_json))
-        self.assertEqual(output_json, '{"TelescopeID": "AFX123", "trigger": 112456, "CaptureDate": "2012-04-23T16:25:08", "EventID": "UIDASDBN456"}')
+        self.assertIn('{"TelescopeID": "AFX123", "trigger": 112456, "CaptureDate": "2012-04-23T16:25:08", "EventID": "UIDASDBN456"',output_json)
+        end=time.time()
+        print ("time to parse files is {:f} s".format(end-start))
 
     def testHDF5Generator(self):
         metadatagenerator=onedatacustom.metadatagenerator.generate(self.currentDir+"/ressources/gamma_test_generated.hdf5")
@@ -23,11 +27,9 @@ class Hdf5Test(unittest.TestCase):
 
         output_json=onedatacustom.metadataextractor.extract(self.currentDir+"/ressources/gamma_test_generated.hdf5")
         print("output_json generator"+str(output_json))
-        self.assertEqual(output_json, '{"TelescopeID": "AFX123", "trigger": 112457, "CaptureDate": "2012-04-23T16:25:08", "EventID": "UIDASDBN456"}')
+        self.assertIn('{"TelescopeID": "AFX123", "trigger": 112457, "CaptureDate": "2012-04-23T16:25:08", "EventID": "UIDASDBN456"',output_json, )
 
-    def testLoopHDF5Generator(self, nbrfileperdirectory=5, scalefactor=10, path_to_volumes=None ):
-        if path_to_volumes is None:
-            path_to_volumes=self.currentDir+"/ressources/volumes/"
+    def testLoopHDF5Generator(self, nbrfileperdirectory=5, scalefactor=10, path_to_volumes=os.path.dirname(os.path.abspath(__file__))+"/ressources/volumes/" ):
         try:
             shutil.rmtree(path_to_volumes)
         except :
@@ -47,7 +49,12 @@ def main():
     print (sys.argv[1])
     print (sys.argv[2])
 
-    hdf5Test.testLoopHDF5Generator(int(sys.argv[1]),int(sys.argv[2]),sys.argv[3])
+    if len(sys.argv)>3 :
+        path_to_volumes=sys.argv[3]
+    else :
+        path_to_volumes=os.path.dirname(os.path.abspath(__file__))+"/ressources/volumes/"
+
+    hdf5Test.testLoopHDF5Generator(int(sys.argv[1]),int(sys.argv[2]),path_to_volumes)
 
 if __name__ == '__main__':
     main()

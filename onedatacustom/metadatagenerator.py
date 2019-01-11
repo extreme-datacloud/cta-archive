@@ -22,6 +22,7 @@ class MetaDataGeneratorHdf5:
     trigger = 'trigger'
     capture_date = 'CaptureDate'
     event_id = 'EventID'
+    current_time= 'currenttime'
 
     def __init__(self, h5_file_path):
         self.h5_file = h5py.File(h5_file_path, 'w')
@@ -62,7 +63,7 @@ class MetaDataGeneratorHdf5:
                     metadatagenerator.set_event_id_value("UIDASDBN"+str(file_id/10))
                     metadatagenerator.set_telescope_id_value("AFX"+str(file_id%100))
         end=time.time()
-        print ("time to generate {:d} files is {:f} ms".format(nbr_of_file_per_directory*scalefactor**2, end-start))
+        print ("time to generate {:d} files is {:f} s".format(nbr_of_file_per_directory*scalefactor**2, end-start))
 
 def generate(file_path):
     if file_path.endswith('.fz'):
