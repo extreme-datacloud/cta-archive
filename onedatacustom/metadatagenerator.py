@@ -48,17 +48,15 @@ class MetaDataGeneratorHdf5:
     def generate_several_HDF5_file(nbr_of_file_per_directory, pathdirectory0,scalefactor):
         #directory
         start= time.time()
-        for j in range (0,scalefactor):
+        for j in range (1,scalefactor):
             pathdirectory1=pathdirectory0+"/"+str(j)
             os.mkdir(pathdirectory1)
-            time.sleep(5)
             print (j)
-            for k in range (0,scalefactor):
+            for k in range (1,scalefactor):
                 pathdirectory2=pathdirectory1+"/"+str(k)
                 os.mkdir(pathdirectory2)
-                time.sleep(5)
                 for i in range (0,nbr_of_file_per_directory):
-                    file_id=i+k*scalefactor**2+j*scalefactor
+                    file_id=int(str(j)+str(k)+str(i))
                     metadatagenerator=generate(pathdirectory2+"/gamma_test_generated_"+str(file_id)+".hdf5")
                     metadatagenerator.set_trigger_value(file_id)
                     metadatagenerator.set_capture_date_value(1335198308+file_id)

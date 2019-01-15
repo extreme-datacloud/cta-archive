@@ -42,7 +42,7 @@ class Hdf5Test(unittest.TestCase):
         for cls in counter.work():
             total_file += cls.files
         print("nbr files generated "+str(total_file))
-        self.assertEqual(total_file,nbrfileperdirectory*scalefactor**2)
+        self.assertEqual(total_file,nbrfileperdirectory*(scalefactor-1)**2)
 
 def main():
     hdf5Test=Hdf5Test()
