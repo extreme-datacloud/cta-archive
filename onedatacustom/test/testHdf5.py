@@ -29,7 +29,7 @@ class Hdf5Test(unittest.TestCase):
         print("output_json generator"+str(output_json))
         self.assertIn('{"TelescopeID": "AFX123", "trigger": 112457, "CaptureDate": "2012-04-23T16:25:08", "EventID": "UIDASDBN456"',output_json, )
 
-    def testLoopHDF5Generator(self, nbrfileperdirectory=5, scalefactor=10, path_to_volumes=os.path.dirname(os.path.abspath(__file__))+"/ressources/volumes/" ):
+    def testLoopHDF5Generator(self, nbrfileperdirectory=2, scalefactor=2, path_to_volumes=os.path.dirname(os.path.abspath(__file__))+"/ressources/volumes/" ):
         try:
             shutil.rmtree(path_to_volumes)
         except :
