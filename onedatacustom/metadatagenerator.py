@@ -56,6 +56,7 @@ class MetaDataGeneratorHdf5:
             for k in range (0,scalefactor):
                 pathdirectory2=pathdirectory1+"/"+str(k)
                 os.mkdir(pathdirectory2,777)
+                time.sleep(5)
                 for i in range (0,nbr_of_file_per_directory):
                     file_id=i+k*scalefactor**2+j*scalefactor
                     metadatagenerator=generate(pathdirectory2+"/gamma_test_generated_"+str(file_id)+".hdf5")
