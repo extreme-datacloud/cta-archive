@@ -50,12 +50,12 @@ class MetaDataGeneratorHdf5:
         start= time.time()
         for j in range (0,scalefactor):
             pathdirectory1=pathdirectory0+"/"+str(j)
-            os.mkdir(pathdirectory1,777)
+            os.mkdir(pathdirectory1)
             time.sleep(5)
             print (j)
             for k in range (0,scalefactor):
                 pathdirectory2=pathdirectory1+"/"+str(k)
-                os.mkdir(pathdirectory2,777)
+                os.mkdir(pathdirectory2)
                 time.sleep(5)
                 for i in range (0,nbr_of_file_per_directory):
                     file_id=i+k*scalefactor**2+j*scalefactor
