@@ -51,6 +51,7 @@ class MetaDataGeneratorHdf5:
         for j in range (0,scalefactor):
             pathdirectory1=pathdirectory0+"/"+str(j)
             os.mkdir(pathdirectory1,777)
+            time.sleep(5)
             print (j)
             for k in range (0,scalefactor):
                 pathdirectory2=pathdirectory1+"/"+str(k)
