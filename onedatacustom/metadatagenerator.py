@@ -45,16 +45,17 @@ class MetaDataGeneratorHdf5:
         #ascii_event_value = [event_ID_value.encode("ascii", "ignore") ]
         #self.h5_file.create_dataset(self.event_id, (1,1), 'S20', ascii_event_value)
 
-    def generate_several_HDF5_file(nbr_of_file_per_directory, pathdirectory0,scalefactor):
+    def generate_several_HDF5_file(nbr_of_file_per_directory, pathdirectory0,scalefactor, sleeptime=1):
         #directory
         start= time.time()
         for j in range (1,scalefactor):
             pathdirectory1=pathdirectory0+"/"+str(j)
             os.mkdir(pathdirectory1)
-            print (j)
             for k in range (1,scalefactor):
                 pathdirectory2=pathdirectory1+"/"+str(k)
                 os.mkdir(pathdirectory2)
+                print (str(j)+":"+str(k))
+                time.sleep(sleeptime)
                 for i in range (0,nbr_of_file_per_directory):
                     file_id=int(str(j)+str(k)+str(i))
                     metadatagenerator=generate(pathdirectory2+"/gamma_test_generated_"+str(file_id)+".hdf5")
