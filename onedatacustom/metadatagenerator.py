@@ -57,7 +57,7 @@ class MetaDataGeneratorHdf5:
                 print (str(j)+":"+str(k))
                 time.sleep(sleeptime)
                 for i in range (0,nbr_of_file_per_directory):
-                    file_id=int(str(j)+str(k)+str(i))
+                    file_id=int(str(j)+str(k)+str(i).zfill(3))
                     metadatagenerator=generate(pathdirectory2+"/gamma_test_generated_"+str(file_id)+".hdf5")
                     metadatagenerator.set_trigger_value(file_id)
                     metadatagenerator.set_capture_date_value(1335198308+file_id)
