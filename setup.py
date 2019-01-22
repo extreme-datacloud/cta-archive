@@ -15,7 +15,7 @@ setup(
 
     author="F.Gillardo",
 	
-    install_requires= ["h5pY","simplejson"],
+    install_requires= ["h5pY","simplejson", 'requests'],
 
     entry_points=entry_points,
 

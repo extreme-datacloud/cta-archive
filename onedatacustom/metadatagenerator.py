@@ -5,6 +5,8 @@ import json
 import os
 from datetime import datetime
 import time
+import sys
+import shutil
 
 
 
@@ -45,17 +47,21 @@ class MetaDataGeneratorHdf5:
         #ascii_event_value = [event_ID_value.encode("ascii", "ignore") ]
         #self.h5_file.create_dataset(self.event_id, (1,1), 'S20', ascii_event_value)
 
-    def generate_several_HDF5_file(nbr_of_file_per_directory, pathdirectory0,scalefactor, sleeptime=1):
-        #directory
+    def generate_several_HDF5_file(nbr_of_file_per_directory, scalefactor, path_to_volumes, sleeptime=1):
+        try:
+            shutil.rmtree(path_to_volumes)
+        except :
+            print ("Oops! directory does not yet exist")
+
+        os.mkdir(path_to_volumes)
         start= time.time()
-        for j in range (1,scalefactor):
-            pathdirectory1=pathdirectory0+"/"+str(j)
+        for j in range (1,scalefactor+1):
+            pathdirectory1=path_to_volumes+"/"+str(j)
             os.mkdir(pathdirectory1)
-            for k in range (1,scalefactor):
+            for k in range (1,scalefactor+1):
                 pathdirectory2=pathdirectory1+"/"+str(k)
                 os.mkdir(pathdirectory2)
                 print (str(j)+":"+str(k))
-                time.sleep(sleeptime)
                 for i in range (0,nbr_of_file_per_directory):
                     file_id=int(str(j)+str(k)+str(i).zfill(3))
                     metadatagenerator=generate(pathdirectory2+"/gamma_test_generated_"+str(file_id)+".hdf5")
@@ -63,8 +69,9 @@ class MetaDataGeneratorHdf5:
                     metadatagenerator.set_capture_date_value(1335198308+file_id)
                     metadatagenerator.set_event_id_value("UIDASDBN"+str(file_id/10))
                     metadatagenerator.set_telescope_id_value("AFX"+str(file_id%100))
+                time.sleep(sleeptime)
         end=time.time()
-        print ("time to generate {:d} files is {:f} s".format(nbr_of_file_per_directory*scalefactor**2, end-start))
+        print ("time to generate {:d} files is {:f} s".format(nbr_of_file_per_directory*(scalefactor-1)**2, end-start))
 
 def generate(file_path):
     if file_path.endswith('.fz'):
@@ -74,3 +81,18 @@ def generate(file_path):
         return MetaDataGeneratorHdf5(file_path)
     else:
         raise Exception("File format not supported")
+
+
+def main():
+    print (sys.argv[1])
+    print (sys.argv[2])
+
+    if len(sys.argv)>4 :
+        path_to_volumes=sys.argv[4]
+    else :
+        path_to_volumes=os.path.dirname(os.path.abspath(__file__))+"/ressources/volumes/"
+
+    MetaDataGeneratorHdf5.generate_several_HDF5_file(int(sys.argv[1]),int(sys.argv[2]),path_to_volumes,int(sys.argv[3]))
+
+if __name__ == '__main__':
+    main()
