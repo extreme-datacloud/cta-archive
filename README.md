@@ -31,7 +31,8 @@
         edit and run in jupyter notebook the class ExtractionVisualisation.ipynb
 
         
-**Running with Docker
+**Running with Docker**
+
         make docker-build
         make docker-test
     
