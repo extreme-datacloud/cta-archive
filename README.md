@@ -8,14 +8,11 @@
         git clone https://gitlab.in2p3.fr/CTA-LAPP/cta-archive.git
     
     2-from the root of the project execute the following cmd:
-    
         conda env create -f environment.yml
         conda activate ctaarchiveenv
         python setup.py install
         
     3-The following cmd can be executed :
-    
-    
         a-Extract Metadata into JSON format
         onedataextractor path_To_Hdf5
         
@@ -30,10 +27,7 @@
         
         d-display result
         edit and run in jupyter notebook the class ExtractionVisualisation.ipynb
-        
-        
-    
-        
+
         
 **Running with Docker
         make docker-build
