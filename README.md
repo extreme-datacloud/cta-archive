@@ -13,17 +13,26 @@
         conda activate ctaarchiveenv
         python setup.py install
         
-    3-We can execute the following cmd :
+    3-The following cmd can be executed :
     
-        Extract Metadata into JSON format
+    
+        a-Extract Metadata into JSON format
         onedataextractor path_To_Hdf5
         
-        Generate HDF5 file with random headers
+        b-Generate HDF5 file with random headers
         onedatagenerator 500 2 0 pathToTheDirectoryTOGenerateFiles
         500: nbr files per directories
         2²: nbr of directories
         0 latency between files generation between differents directories
+    
+        c-Collect result in csv file
+        edit and run the RestQuery class
         
+        d-display result
+        edit and run in jupyter notebook the class ExtractionVisualisation.ipynb
+        
+        
+    
         
         
 **Running with Docker
