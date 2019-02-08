@@ -11,8 +11,9 @@
         conda env create -f environment.yml
         conda activate ctaarchiveenv
         python setup.py install
-        
-    3-The following cmd can be executed :
+
+**Command:**
+    The following cmd can be executed :
         a-Extract Metadata into JSON format
         onedataextractor path_To_Hdf5
         
