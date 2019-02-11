@@ -1,8 +1,7 @@
 import requests
 import json
 import csv
-import onedatacustom.metadatagenerator as mg
-import onedatacustom.metadataextractor as me
+import metadataextractor as me
 
 class RestQuery:
 
