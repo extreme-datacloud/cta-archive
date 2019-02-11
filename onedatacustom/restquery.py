@@ -1,7 +1,7 @@
 import requests
 import json
 import csv
-import metadataextractor as me
+from . import metadataextractor as me
 
 class RestQuery:
 

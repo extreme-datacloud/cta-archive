@@ -66,7 +66,7 @@ class MetaDataGeneratorHdf5:
         except :
             print ("Oops! directory does not yet exist")
 
-        os.mkdir(root_path_to_volumes+relative_path_to_volume)
+        os.mkdir(root_path_to_volumes+""+relative_path_to_volume)
         start= time.time()
         for j in range (1,scalefactor+1):
             pathdirectory1=relative_path_to_volume+"/"+str(j)
@@ -113,8 +113,17 @@ def main():
     else :
         relative_path_to_volumes="/space/"
 
+    if len(sys.argv)>6 :
+        host=sys.argv[5]
+    else :
+        host="lapp-xdc01.in2p3.fr"
 
-    MetaDataGeneratorHdf5.generate_several_HDF5_file(int(sys.argv[1]),int(sys.argv[2]),root_path_to_volumes,relative_path_to_volumes,int(sys.argv[3]),("lapp-xdc01.in2p3.fr","MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzMGlkZW500aWZpZXIgOTIzNDBmZjkyYTI1Y2RjZTlhM2ZmMWIyYTE5MGJjMGEKMDAxYWNpZCB00aW1lIDwgMTU3NTM4MDY00MwowMDJmc2lnbmF00dXJlIGnMtasbKyvaMI84gZo0061QqELeHb1KJBFJulqOmTdBsCg"))
+    if len(sys.argv)>7 :
+        token=sys.argv[6]
+    else :
+        token="MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzMGlkZW500aWZpZXIgOTIzNDBmZjkyYTI1Y2RjZTlhM2ZmMWIyYTE5MGJjMGEKMDAxYWNpZCB00aW1lIDwgMTU3NTM4MDY00MwowMDJmc2lnbmF00dXJlIGnMtasbKyvaMI84gZo0061QqELeHb1KJBFJulqOmTdBsCg"
+
+    MetaDataGeneratorHdf5.generate_several_HDF5_file(int(sys.argv[1]),int(sys.argv[2]),root_path_to_volumes,relative_path_to_volumes,int(sys.argv[3]),(host,token))
 
 if __name__ == '__main__':
     main()
