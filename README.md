@@ -8,26 +8,34 @@
         git clone https://gitlab.in2p3.fr/CTA-LAPP/cta-archive.git
     
     2-from the root of the project execute the following cmd:
-    
         conda env create -f environment.yml
         conda activate ctaarchiveenv
-        conda install numpy protobuf astropy
-        pip install https://github.com/cta-sst-1m/protozfitsreader/archive/v1.0.2.tar.gz
         python setup.py install
-        
-    3-execute the following cmd to extract metadata from a file:
-    
+
+**Command:**
+
+    The following cmd can be executed :
+    a-Extract Metadata into JSON format
         onedataextractor path_To_Hdf5
-        onedatageneratorloop 2 20 /mnt/c/git/cta-archive/onedatacustom/test/ressources/tmp/
-**Running with Docker
+        
+    b-Generate HDF5 file with random headers
+        onedatagenerator 500 2 0 pathToTheDirectoryTOGenerateFiles
+        500: nbr files per directories
+        2²: nbr of directories
+        0 latency between files generation between differents directories
+    
+    c-Collect result in csv file
+        edit and run the RestQuery class
+        
+    d-display result
+        edit and run in jupyter notebook the class ExtractionVisualisation.ipynb
+
+        
+**Running with Docker**
+
         make docker-build
         make docker-test
     
-    or test manually with test file in the container:
-        docker run Frederic.Gillardo1/ctaarchive onedatacustom/test/ressources/example_9evts_NectarCAM.fits.fz
-    or files outside of the container:
-        docker run -v $PWD/onedatacustom/test/ressources:/data Frederic.Gillardo1/ctaarchive /data/example_9evts_NectarCAM.fits.fz
-        
     
 **Tool specification:**
  
@@ -48,21 +56,8 @@
                    "EventID":"UIDASDBN456"
         }
     
-    Zfits
-          If the input is Zfits file with the following MetaData :
-             
-                    TelescopeID : String = AFX123
-                    CaptureDate : date = 1335198308 (it is the timeStamp in Z for 2012-04-23T18:25:43 Z)
-                         
-          The tool will return as output the following text (json object serialized):
-                
-          {
-                    "TelescopeID": "AFX123",
-                    "CaptureDate": 2012-04-23T18:25:43Z,
-          }
-                                 
     Note:
-    Date will be encoded using ISO 8601
+    Date is encoded using ISO 8601
     
     frederic.gillardo@lapp.in2p3.fr
 
