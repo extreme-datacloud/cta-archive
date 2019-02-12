@@ -8,7 +8,7 @@ import time
 import sys
 import shutil
 
-
+from . import restquery as rq
 
 
 class DateTimeEncoder(json.JSONEncoder):
@@ -84,7 +84,7 @@ class MetaDataGeneratorHdf5:
                     metadatagenerator.set_event_id_value("UIDASDBN"+str(file_id/10))
                     metadatagenerator.set_telescope_id_value("AFX"+str(file_id%100))
                     if connectiontuple!=None:
-                        restquery=restquery.RestQuery(connectiontuple[0],connectiontuple[1])
+                        restquery=rq(connectiontuple[0],connectiontuple[1])
                         restquery.set_attribute(fileName,root_path_to_volumes)
 
 
