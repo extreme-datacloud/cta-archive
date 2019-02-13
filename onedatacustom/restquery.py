@@ -1,10 +1,10 @@
 import requests
 import json
 import csv
-from . import metadataextractor as me
+from onedatacustom.metadataextractor import MetaDataExtractorHdf5
 
-class RestQuery:
 
+class RestQueryClass:
     def __init__(self, hostname,token):
         self. headers = {'X-Auth-Token': token,"Content-type": "application/json"}
         self.hostname=hostname
@@ -31,7 +31,7 @@ class RestQuery:
         return (json.loads(response.text))
 
     def set_attribute(self, fileName, root_path_to_volumes):
-        meta_data_extractor=me.MetaDataExtractorHdf5(root_path_to_volumes+fileName)
+        meta_data_extractor=MetaDataExtractorHdf5(root_path_to_volumes+fileName)
         url = "https://" + self.hostname +"/api/v3/oneprovider/metadata/" + fileName
         response = requests.request( "PUT", url, json=meta_data_extractor.to_json(), headers=self.headers, verify=False)
 

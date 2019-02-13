@@ -1,15 +1,13 @@
 #!/usr/bin/python
 
-import h5py
 import json
 import os
-from datetime import datetime
-import time
-import sys
 import shutil
-
-from . import restquery as rq
-
+import sys
+import time
+from datetime import datetime
+import h5py
+from onedatacustom.restquery import RestQueryClass
 
 class DateTimeEncoder(json.JSONEncoder):
     def default(self, o):
@@ -60,7 +58,7 @@ class MetaDataGeneratorHdf5:
     def get_event_id_value(self):
         return self.meta_dataset.attrs[self.event_id]
 
-    def generate_several_HDF5_file(nbr_of_file_per_directory, scalefactor, root_path_to_volumes, relative_path_to_volume, sleeptime=1, connectiontuple=None):
+    def generate_several_HDF5_file(nbr_of_file_per_directory, scalefactor, root_path_to_volumes, relative_path_to_volume, sleeptime=1, host=None, token=None):
         try:
             shutil.rmtree(root_path_to_volumes+relative_path_to_volume)
         except :
@@ -83,8 +81,8 @@ class MetaDataGeneratorHdf5:
                     metadatagenerator.set_capture_date_value(1335198308+file_id)
                     metadatagenerator.set_event_id_value("UIDASDBN"+str(file_id/10))
                     metadatagenerator.set_telescope_id_value("AFX"+str(file_id%100))
-                    if connectiontuple!=None:
-                        restquery=rq.RestQuery(connectiontuple[0],connectiontuple[1])
+                    if host!=None and token!=None:
+                        restquery=RestQueryClass(host,token)
                         restquery.set_attribute(fileName,root_path_to_volumes)
 
 
@@ -114,16 +112,16 @@ def main():
         relative_path_to_volumes="/space/"
 
     if len(sys.argv)>6 :
-        host=sys.argv[5]
-    else :
-        host="lapp-xdc01.in2p3.fr"
+        host=sys.argv[6]
+   # else :
+   #     host="lapp-xdc01.in2p3.fr"
 
     if len(sys.argv)>7 :
-        token=sys.argv[6]
-    else :
-        token="MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzMGlkZW500aWZpZXIgOTIzNDBmZjkyYTI1Y2RjZTlhM2ZmMWIyYTE5MGJjMGEKMDAxYWNpZCB00aW1lIDwgMTU3NTM4MDY00MwowMDJmc2lnbmF00dXJlIGnMtasbKyvaMI84gZo0061QqELeHb1KJBFJulqOmTdBsCg"
+        token=sys.argv[7]
+    #else :
+    #    token="MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzMGlkZW500aWZpZXIgOTIzNDBmZjkyYTI1Y2RjZTlhM2ZmMWIyYTE5MGJjMGEKMDAxYWNpZCB00aW1lIDwgMTU3NTM4MDY00MwowMDJmc2lnbmF00dXJlIGnMtasbKyvaMI84gZo0061QqELeHb1KJBFJulqOmTdBsCg"
 
-    MetaDataGeneratorHdf5.generate_several_HDF5_file(int(sys.argv[1]),int(sys.argv[2]),root_path_to_volumes,relative_path_to_volumes,int(sys.argv[3]),(host,token))
+    MetaDataGeneratorHdf5.generate_several_HDF5_file(int(sys.argv[1]),int(sys.argv[2]),root_path_to_volumes,relative_path_to_volumes,int(sys.argv[3]),host,token)
 
 if __name__ == '__main__':
     main()
