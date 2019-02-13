@@ -18,6 +18,7 @@ class DateTimeEncoder(json.JSONEncoder):
 
 
 class MetaDataExtractorHdf5:
+    datePattern='%Y-%m-%d %H:%M:%S'
     telescope_ID = 'TelescopeID'
     trigger = 'trigger'
     capture_date = 'CaptureDate'
@@ -41,9 +42,10 @@ class MetaDataExtractorHdf5:
         return self.h5_file.attrs[self.event_id]
 
     def to_json(self):
-        data = {self.telescope_ID: self.get_telescope_id_value(), self.trigger: self.get_trigger_value(),
-                self.capture_date: self.get_capture_date_value(), self.event_id: self.get_event_id_value(), self.extraction_time:time.time()}
-        return json.dumps(data, cls=DateTimeEncoder)
+         return json.dumps(self.to_dic(), cls=DateTimeEncoder)
+
+    def to_dic(self):
+        return {self.telescope_ID: self.get_telescope_id_value(), self.trigger: self.get_trigger_value(),self.capture_date: self.get_capture_date_value().strftime(self.datePattern), self.event_id: self.get_event_id_value(), self.extraction_time:time.time()}
 
 """
 class MetaDataExtractorZfits:

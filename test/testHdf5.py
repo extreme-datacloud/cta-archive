@@ -12,7 +12,7 @@ class Hdf5Test(unittest.TestCase):
         start= time.time()
         output_json=metadataextractor.extract(self.currentDir+"/ressources/gamma_test.hdf5")
         print("output_json extractor"+str(output_json))
-        self.assertIn('{"TelescopeID": "AFX123", "trigger": 112456, "CaptureDate": "2012-04-23T16:25:08", "EventID": "UIDASDBN456"',output_json)
+        self.assertIn('{"TelescopeID": "AFX123", "trigger": 112456, "CaptureDate": "2012-04-23 16:25:08", "EventID": "UIDASDBN456"',output_json)
         end=time.time()
         print ("time to parse files is {:f} s".format(end-start))
 
@@ -24,7 +24,7 @@ class Hdf5Test(unittest.TestCase):
         metadatageneratorImpl.set_telescope_id_value("AFX123")
         output_json=metadataextractor.extract(self.currentDir+"/ressources/gamma_test_generated.hdf5")
         print("output_json generator"+str(output_json))
-        self.assertIn('{"TelescopeID": "AFX123", "trigger": 112457, "CaptureDate": "2012-04-23T16:25:08", "EventID": "UIDASDBN456"',output_json, )
+        self.assertIn('{"TelescopeID": "AFX123", "trigger": 112457, "CaptureDate": "2012-04-23 16:25:08", "EventID": "UIDASDBN456"',output_json, )
 
     def testLoopHDF5Generator(self, nbrfileperdirectory=2, scalefactor=2, root_path_to_volumes=os.path.dirname(os.path.abspath(__file__))+"/ressources/volumes/",relative_path_to_volumes="space",sleeptime=1 ):
         metadatagenerator.MetaDataGeneratorHdf5.generate_several_HDF5_file(nbrfileperdirectory,scalefactor,root_path_to_volumes, relative_path_to_volumes,sleeptime)

@@ -32,12 +32,12 @@ class RestQueryClass:
 
     def set_attribute(self, fileName, root_path_to_volumes):
         meta_data_extractor=MetaDataExtractorHdf5(root_path_to_volumes+fileName)
-        print("attaching metadata to" +fileName + meta_data_extractor.to_json())
+        print("attaching metadata to" +fileName + str(meta_data_extractor.to_json()))
         url = "https://" + self.hostname +"/api/v3/oneprovider/metadata/" + fileName
-        response = requests.request( "PUT", url, json=meta_data_extractor.to_json(), headers=self.headers, verify=False)
+        response = requests.request( "PUT", url, json=meta_data_extractor.to_dic(), headers=self.headers, verify=False)
 
         print(url)
-        print(response.text)
+        print(response)
         #self.pretty_print_POST(response)
 
 
@@ -45,7 +45,7 @@ class RestQueryClass:
 
 def retrieveMetadata(pathdirectory0, scalefactor, nbr_of_file_per_directory):
 
-    restquery=RestQuery("cc-xdc02.in2p3.fr","MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzMGlkZW500aWZpZXIgOTIzNDBmZjkyYTI1Y2RjZTlhM2ZmMWIyYTE5MGJjMGEKMDAxYWNpZCB00aW1lIDwgMTU3NTM4MDY00MwowMDJmc2lnbmF00dXJlIGnMtasbKyvaMI84gZo0061QqELeHb1KJBFJulqOmTdBsCg")
+    restquery=RestQueryClass("cc-xdc02.in2p3.fr","MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzMGlkZW500aWZpZXIgOTIzNDBmZjkyYTI1Y2RjZTlhM2ZmMWIyYTE5MGJjMGEKMDAxYWNpZCB00aW1lIDwgMTU3NTM4MDY00MwowMDJmc2lnbmF00dXJlIGnMtasbKyvaMI84gZo0061QqELeHb1KJBFJulqOmTdBsCg")
 
     with open('./resultQuery/resultExtraction.csv', 'w', newline='') as csvfile:
         fieldnames = ["file", "ctime", "mtime", "atime", "Extractiontime"]
@@ -68,6 +68,6 @@ def retrieveMetadata(pathdirectory0, scalefactor, nbr_of_file_per_directory):
 
 
 if __name__ == '__main__':
-   restquery=RestQuery("lapp-xdc01.in2p3.fr","MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzMGlkZW500aWZpZXIgOTIzNDBmZjkyYTI1Y2RjZTlhM2ZmMWIyYTE5MGJjMGEKMDAxYWNpZCB00aW1lIDwgMTU3NTM4MDY00MwowMDJmc2lnbmF00dXJlIGnMtasbKyvaMI84gZo0061QqELeHb1KJBFJulqOmTdBsCg")
-   restquery.set_attribute("testA4/1/1/gamma_test_generated_11001.hdf5","SPACE-SMALL")
+   restquery=RestQueryClass("lapp-xdc01.in2p3.fr","MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzMGlkZW500aWZpZXIgOTIzNDBmZjkyYTI1Y2RjZTlhM2ZmMWIyYTE5MGJjMGEKMDAxYWNpZCB00aW1lIDwgMTU3NTM4MDY00MwowMDJmc2lnbmF00dXJlIGnMtasbKyvaMI84gZo0061QqELeHb1KJBFJulqOmTdBsCg")
+   restquery.set_attribute("SPACE-SMALL/testA4/1/1/gamma_test_generated_11001.hdf5","/mnt/c/git/cta-archive/test/ressources/tmp/")
 
