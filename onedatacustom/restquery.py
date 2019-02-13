@@ -32,6 +32,7 @@ class RestQueryClass:
 
     def set_attribute(self, fileName, root_path_to_volumes):
         meta_data_extractor=MetaDataExtractorHdf5(root_path_to_volumes+fileName)
+        print("attaching metadata to" +fileName + meta_data_extractor.to_json())
         url = "https://" + self.hostname +"/api/v3/oneprovider/metadata/" + fileName
         response = requests.request( "PUT", url, json=meta_data_extractor.to_json(), headers=self.headers, verify=False)
 

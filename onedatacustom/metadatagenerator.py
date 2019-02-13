@@ -100,24 +100,27 @@ def generate(file_path):
 def main():
     print (sys.argv[1])
     print (sys.argv[2])
-
+    print (sys.argv[3])
     if len(sys.argv)>4 :
         root_path_to_volumes=sys.argv[4]
     else :
         root_path_to_volumes=os.path.dirname(os.path.abspath(__file__))+"/ressources/volumes/"
+    print(root_path_to_volumes)
 
     if len(sys.argv)>5 :
         relative_path_to_volumes=sys.argv[5]
     else :
         relative_path_to_volumes="/space/"
+    print(relative_path_to_volumes)
 
     if len(sys.argv)>6 :
         host=sys.argv[6]
    # else :
    #     host="lapp-xdc01.in2p3.fr"
-
+    print(host)
     if len(sys.argv)>7 :
         token=sys.argv[7]
+    print(token)
     #else :
     #    token="MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzMGlkZW500aWZpZXIgOTIzNDBmZjkyYTI1Y2RjZTlhM2ZmMWIyYTE5MGJjMGEKMDAxYWNpZCB00aW1lIDwgMTU3NTM4MDY00MwowMDJmc2lnbmF00dXJlIGnMtasbKyvaMI84gZo0061QqELeHb1KJBFJulqOmTdBsCg"
 
