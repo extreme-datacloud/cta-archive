@@ -7,8 +7,4 @@ dependencies:
  - h5py
  - simplejson
  - requests
- - jupyter
- - sympy
- - pandas
- - matplotlib
  - ctapipe
