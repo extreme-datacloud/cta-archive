@@ -38,6 +38,6 @@ class Hdf5Test(unittest.TestCase):
     def testRestQuery(self):
         restqueryImpl=restquery.RestQueryClass("noHostanme","noToken")
         with self.assertRaises(requests.exceptions.ConnectionError):
-            restqueryImpl.get_attributefromfile("fakeFile","fakeSpace")
+            restqueryImpl.get_attributefromfile("fakeFile")
 
 
