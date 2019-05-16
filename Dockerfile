@@ -4,7 +4,7 @@ COPY . /app
 WORKDIR /app
 
 RUN conda env create -f environment.yml
-RUN conda init bash
+RUN conda init xonsh
 RUN conda activate ctaarchiveenv
 RUN python setup.py install
 
