@@ -3,7 +3,7 @@
 from setuptools import setup, find_packages
 
 entry_points = {}
-entry_points['console_scripts'] = ['onedataextractor=onedatacustom.metadataextractor:main', 'onedataextractorCtaContainer=onedatacustom.metadataextractorCtaContainer:main','onedatagenerator=onedatacustom.metadatagenerator:main']
+entry_points['console_scripts'] = ['onedataextractor=onedatacustom.metadataextractor:main',  'onedataextractorDebug=onedatacustom.metadataextractorDebug:main', 'onedataextractorCtaContainer=onedatacustom.metadataextractorCtaContainer:main','onedatagenerator=onedatacustom.metadatagenerator:main']
 
 setup(
 

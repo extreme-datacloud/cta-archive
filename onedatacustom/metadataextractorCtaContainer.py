@@ -32,11 +32,11 @@ class MetaDataExtractorCtaContainer:
         self.source=event_source(container_file_path)
         self.event = next(iter(self.source))
 
-    # def get_is_simulation(self):
-    #     return self.source.metadata.get("is_simulation")
+    def get_is_simulation(self):
+        return self.source.metadata.get("is_simulation")
 
-    # def get_is_diffuse(self):
-    #     return self.source.metadata.get("is_simulation")
+    def get_is_diffuse(self):
+        return self.source.metadata.get("is_simulation")
 
     def get_particle_type(self):
         return self.event.mc.shower_primary_id
@@ -47,11 +47,11 @@ class MetaDataExtractorCtaContainer:
     def get_time(self):
         return self.event.mcheader.detector_prog_start
 
-    # def get_pointing_direction_az(self):
-    #     return (self.event.mcheader.run_array_direction[0].to(units.rad).value)
-    #
-    # def get_pointing_direction_alt(self):
-    #     return(self.event.mcheader.run_array_direction[1].to(units.rad).value)
+    def get_pointing_direction_az(self):
+        return (self.event.mcheader.run_array_direction[0].to(units.rad).value)
+
+    def get_pointing_direction_alt(self):
+        return(self.event.mcheader.run_array_direction[1].to(units.rad).value)
 
     def get_simtel_version(self):
         return self.event.mcheader.simtel_version
@@ -60,8 +60,7 @@ class MetaDataExtractorCtaContainer:
          return json.dumps(self.to_dic(), cls=DateTimeEncoder)
 
     def to_dic(self):
-        # return {self.is_simulation: self.get_is_simulation(), self.pointing_direction_alt: self.get_pointing_direction_alt(), self.pointing_direction_az:self.get_pointing_direction_az(), self.is_diffuse:self.get_is_diffuse(), self.particle_type: self.get_particle_type(), self.run_id: self.get_run_id(),self.time: self.get_time(), self.simtel_version: self.get_simtel_version()}
-        return {self.particle_type: self.get_particle_type(), self.run_id: self.get_run_id(),self.time: self.get_time(), self.simtel_version: self.get_simtel_version()}
+        return {self.is_simulation: self.get_is_simulation(), self.pointing_direction_alt: self.get_pointing_direction_alt(), self.pointing_direction_az:self.get_pointing_direction_az(), self.is_diffuse:self.get_is_diffuse(), self.particle_type: self.get_particle_type(), self.run_id: self.get_run_id(),self.time: self.get_time(), self.simtel_version: self.get_simtel_version()}
 
 def extract(file_path):
     return MetaDataExtractorCtaContainer(file_path).to_json()
@@ -75,14 +74,3 @@ def main():
 if __name__ == '__main__':
     print(main())
 
-
-
-def main():
-
-    file_path=get_dataset_path("gamma_test_large.simtel.gz")
-    print (file_path)
-    print(extract(file_path))
-    exit(0)
-
-if __name__ == '__main__':
-    print(main())
