@@ -3,9 +3,14 @@
 import json
 import sys
 from datetime import datetime
+import ctapipe
 from ctapipe.io import event_source
 from ctapipe.utils import get_dataset_path
 from astropy import units
+import eventio
+import pkg_resources
+
+print(pkg_resources.get_distribution("eventio").version)
 
 
 class DateTimeEncoder(json.JSONEncoder):
@@ -67,6 +72,7 @@ def extract(file_path):
 
 
 def main():
+    print (ctapipe.__version__)
     file_path = sys.argv[1]
     print(extract(file_path))
     exit(0)
